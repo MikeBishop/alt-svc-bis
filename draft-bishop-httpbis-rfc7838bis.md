@@ -22,7 +22,7 @@ author:
 
  -
     ins: P. McManus
-    name: Patric McManus
+    name: Patrick McManus
     organization: Fastly
     email: mcmanus@ducksong.com
 
@@ -96,12 +96,12 @@ by {{!RFC7405}} along with the "#rule" extension defined in Section 7 of
 {{!RFC7234}}:
 
 ~~~ abnf
-OWS           = <OWS, see {{!RFC7230}}, Section 3.2.3>
-delta-seconds = <delta-seconds; see {{!RFC7234}}, Section 1.2.1>
-port          = <port, see {{!RFC7230}}, Section 2.7>
-quoted-string = <quoted-string, see {{!RFC7230}}, Section 3.2.6>
-token         = <token, see {{!RFC7230}}, Section 3.2.6>
-uri-host      = <uri-host, see {{!RFC7230}}, Section 2.7>
+OWS           = <OWS, see [RFC7230], Section 3.2.3>
+delta-seconds = <delta-seconds; see [RFC7234], Section 1.2.1>
+port          = <port, see [RFC7230], Section 2.7>
+quoted-string = <quoted-string, see [RFC7230], Section 3.2.6>
+token         = <token, see [RFC7230], Section 3.2.6>
+uri-host      = <uri-host, see [RFC7230], Section 2.7>
 ~~~
 
 # Alternative Services Concepts
@@ -120,14 +120,14 @@ considered authoritative for an origin's resources, in the sense of
 For example, an origin:
 
 ~~~ example
-   ("http", "www.example.com", "80")
+("http", "www.example.com", "80")
 ~~~
 
 might declare that its resources are also accessible at the
 alternative service:
 
 ~~~ example
-   ("h2", "new.example.com", "81")
+("h2", "new.example.com", "81")
 ~~~
 
 By their nature, alternative services are explicitly at the
@@ -308,13 +308,13 @@ alternative services to clients by adding an Alt-Svc header field to
 responses.
 
 ~~~ abnf
-   Alt-Svc       = clear / 1#alt-value
-   clear         = %s"clear"; "clear", case-sensitive
-   alt-value     = alternative *( OWS ";" OWS parameter )
-   alternative   = protocol-id "=" alt-authority
-   protocol-id   = token ; percent-encoded ALPN protocol name
-   alt-authority = quoted-string ; containing [ uri-host ] ":" port
-   parameter     = token "=" ( token / quoted-string )
+Alt-Svc       = clear / 1#alt-value
+clear         = %s"clear"; "clear", case-sensitive
+alt-value     = alternative *( OWS ";" OWS parameter )
+alternative   = protocol-id "=" alt-authority
+protocol-id   = token ; percent-encoded ALPN protocol name
+alt-authority = quoted-string ; containing [ uri-host ] ":" port
+parameter     = token "=" ( token / quoted-string )
 ~~~
 
 The field value consists either of a list of values, each of which
@@ -367,15 +367,11 @@ used because ":" is not an allowed character in "token".
 
 Examples for protocol name escaping:
 
-+--------------------+-------------+---------------------+
 | ALPN protocol name | protocol-id | Note                |
-+--------------------+-------------+---------------------+
+| ------------------ | ----------- | --------------------|
 | h2                 | h2          | No escaping needed  |
-+--------------------+-------------+---------------------+
 | w=x:y#z            | w%3Dx%3Ay#z | "=" and ":" escaped |
-+--------------------+-------------+---------------------+
 | x%y                | x%25y       | "%" needs escaping  |
-+--------------------+-------------+---------------------+
 
 Alt-Svc MAY occur in any HTTP response message, regardless of the
 status code.  Note that recipients of Alt-Svc can ignore the header
@@ -427,7 +423,7 @@ can be modified with the "ma" (max-age) parameter.
 Syntax:
 
 ~~~ abnf
-ma = delta-seconds; see {{!RFC7234}}, Section 1.2.1
+ma = delta-seconds; see [RFC7234], Section 1.2.1
 ~~~
 
 The delta-seconds value indicates the number of seconds since the
@@ -444,11 +440,11 @@ response age.
 For example, a response:
 
 ~~~ example
-   HTTP/1.1 200 OK
-   Content-Type: text/html
-   Cache-Control: max-age=600
-   Age: 30
-   Alt-Svc: h2=":8000"; ma=60
+HTTP/1.1 200 OK
+Content-Type: text/html
+Cache-Control: max-age=600
+Age: 30
+Alt-Svc: h2=":8000"; ma=60
 ~~~
 
 indicates that an alternative service is available and usable for the
@@ -526,7 +522,7 @@ Origin-Len:
 : An unsigned, 16-bit integer indicating the length, in octets, of the Origin
   field.
 
-Origin:  
+Origin:
 
 : An OPTIONAL sequence of characters containing the ASCII serialization of an
   origin ({{!RFC6454}}, Section 6.2) to which the alternative service is
@@ -569,7 +565,7 @@ alternative service in use, just as the Host header field
 origin.
 
 ~~~ abnf
-   Alt-Used     = uri-host [ ":" port ]
+Alt-Used     = uri-host [ ":" port ]
 ~~~
 
 Alt-Used is intended to allow alternative services to detect loops,
@@ -618,12 +614,10 @@ This document defines the following HTTP header fields, so their
 associated registry entries have been added according to the
 permanent registrations below (see {{?BCP90}}):
 
-+-------------------+----------+----------+------------+
 | Header Field Name | Protocol | Status   | Reference  |
-+-------------------+----------+----------+------------+
+| ----------------- | -------- | -------- | ---------- |
 | Alt-Svc           | http     | standard | Section 3  |
 | Alt-Used          | http     | standard | Section 5  |
-+-------------------+----------+----------+------------+
 
 The change controller is: "IETF (iesg@ietf.org) -- Internet
 Engineering Task Force".
@@ -667,12 +661,10 @@ Values to be added to this name space require Expert Review (see
 The "Hypertext Transfer Protocol (HTTP) Alt-Svc Parameter Registry"
 has been populated with the registrations below:
 
-+-------------------+--------------+
 | Alt-Svc Parameter | Reference    |
-+-------------------+--------------+
+| ----------------- | ------------ |
 | ma                | Section 3.1  |
 | persist           | Section 3.1  |
-+-------------------+--------------+
 
 # Internationalization Considerations
 
