@@ -287,5 +287,6 @@ This document has no IANA actions.
 # Acknowledgments
 {:numbered="false"}
 
-Martin Thomson, Lucas Pardue, and Mike Bishop reviewed and commented on an early
-version of this draft.
+Martin Thomson, Lucas Pardue, and Mike Bishop reviewed and commented on [an
+early version of this
+draft](https://docs.google.com/document/d/1QNaXduqohACK93qLPpxkPJ2rHQMgWqUPL-DkZS11htQ/edit?ts=60a5dc92#).
