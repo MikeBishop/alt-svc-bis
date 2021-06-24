@@ -123,21 +123,77 @@ Two options (and there may be more) include:
 
 ## Better Interactions with HTTPS Record
 
-This was deferred out of the HTTPS RR draft.  There are a number of design
-options here, but requirements and pros/cons will want to be discussed in-detail
-before proposing designs.  Supporting ECH and Alt-Svc together is a primary
-goal.
-
-An important item here is which takes precedence, providing safe and
-time-bounded ways to allow Alt-Svc to take precedence over HTTPS records.
-Alt-Svc has the ability to be delivered in a user-specific manner -- useful
-operationally, but potentially problematic for privacy.  HTTPS records can be
-easily revalidated, which is more difficult with an Alt-Svc record.
+Interaction between Alt-Svc and the HTTPS RR was a difficult problem in the
+SVCB/HTTPS draft, as dnsop is not the ideal place to update Alt-Svc.
 
 Providing a way for Alt-Svc to act as AliasMode references to HTTPS SvcMode
 records seems like one clean way for interaction in that it avoids needing to
 duplicate SVCB in Alt-Svc.  We would still need to address time-bounding and
 trust considerations.
+
+### Relative Priority
+
+Alt-Svc and HTTPS records have different interaction and trust models.  Alt-Svc
+is provided in-connection, and might be targeted to the specific client instead
+of simply based on the client IP address. It is also received over an
+authenticated channel, so that the Alt-Svc entry is verifiably from the
+purported origin server.
+
+An HTTPS record is published in the DNS, and can be targeted only to the extend
+that any DNS record might be targeted based on the client subnet.  In the
+absence of DNSSEC signing and verification, information from the DNS is
+considered untrusted.
+
+However, Alt-Svc records are at best cached from the last interaction with the
+server, while HTTPS records can be retrieved when a client is preparing to make
+a connection to the server.
+
+This means that when the client is preparing to make a connection, the Alt-Svc
+records are more trusted and more tailored, while the HTTPS records are more
+current.  Should a client not do HTTPS queries when it has a usable Alt-Svc
+record?  Should the HTTPS records override Alt-Svc?  Or should the two
+mechanisms interact in some way?
+
+{{Section 8.3 of SVCB}} says this:
+
+> Clients that implement support for both Alt-Svc and HTTPS records SHOULD
+> retrieve any HTTPS records for the Alt-Svc alt-authority, and ensure that
+> their connection attempts are consistent with both the Alt-Svc parameters and
+> any received HTTPS SvcParams. If present, the HTTPS record's TargetName and
+> port override the alt-authority.
+
+That is, if Alt-Svc provides an alternative host, it changes the hostname being
+resolved away from the origin stated in the URL.  Once those HTTPS records are
+retrieved, the capabilities advertised in Alt-Svc filter the endpoints
+advertised in the DNS.
+
+### Handling Negotiation Variability
+
+During the development of SVCB/HTTPS, David Benjamin observed that Alt-Svc
+preempts the negotiation of available protocols in TLS.  In ALPN, the client
+offers its supported protocols, and the server selects one.  {{?AltSvc}} says
+the following:
+
+> If the connection to the alternative service does not negotiate the expected
+> protocol (for example, ALPN fails to negotiate h2, or an Upgrade request to
+> h2c is not accepted), the connection to the alternative service MUST be
+> considered to have failed.
+
+This means that, even if the client and the server both support a more preferred
+protocol than that advertised in the Alt-Svc entry, the client MUST consider its
+negotiation to have failed.  (There is a possible alternate reading, which is
+that the client can rely on the server supporting the advertised protocol;
+however, if the server does not support the advertised protocol, this can only
+be detected if that's the only protocol the client offered.)
+
+In contrast, SVCB says that the list of advertised ALPNs is used to select a
+transport layer -- TLS, DTLS, or QUIC. The client offers all of its
+supported protocols and performs negotiation with the server only within TLS.
+
+This difference is motivated in part by the status of the DNS record as an
+untrusted channel.  The set of ALPN tokens supported by the origin and its
+alternatives is more trusted when obtained directly from the origin over an
+authenticated connection.
 
 ## HTTP/3 Frame Definition
 
