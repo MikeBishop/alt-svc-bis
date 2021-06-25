@@ -136,25 +136,25 @@ trust considerations.
 Alt-Svc and HTTPS records have different interaction and trust models.  Alt-Svc
 is provided in-connection, and might be targeted to the specific client instead
 of simply based on the client IP address. It is also received over an
-authenticated channel, so that the Alt-Svc entry is verifiably from the
-purported origin server.
+authenticated channel, so that the Alt-Svc entry is known to come from the
+origin server.
 
 An HTTPS record is published in the DNS, and can be targeted only to the extend
 that any DNS record might be targeted based on the client subnet.  In the
-absence of DNSSEC signing and verification, information from the DNS is
+absence of DNSSEC signing and verification, information from the DNS must be
 considered untrusted.
 
-However, Alt-Svc records are at best cached from the last interaction with the
-server, while HTTPS records can be retrieved when a client is preparing to make
-a connection to the server.
+Alt-Svc records are at best cached from the last interaction with the server,
+while HTTPS records can be retrieved when a client is preparing to make a
+connection to the server.
 
-This means that when the client is preparing to make a connection, the Alt-Svc
-records are more trusted and more tailored, while the HTTPS records are more
-current.  Should a client not do HTTPS queries when it has a usable Alt-Svc
-record?  Should the HTTPS records override Alt-Svc?  Or should the two
-mechanisms interact in some way?
+When the client is preparing to make a connection, the Alt-Svc records are more
+trusted and more tailored, while the HTTPS records are more current.  Should a
+client not do HTTPS queries when it has a usable Alt-Svc record?  Should the
+HTTPS records override Alt-Svc?  Or should the two mechanisms interact in some
+way?
 
-{{Section 8.3 of SVCB}} says this:
+{{Section 8.3 of SVCB}} resolves the question this way:
 
 > Clients that implement support for both Alt-Svc and HTTPS records SHOULD
 > retrieve any HTTPS records for the Alt-Svc alt-authority, and ensure that
@@ -165,7 +165,8 @@ mechanisms interact in some way?
 That is, if Alt-Svc provides an alternative host, it changes the hostname being
 resolved away from the origin stated in the URL.  Once those HTTPS records are
 retrieved, the capabilities advertised in Alt-Svc filter the endpoints
-advertised in the DNS.
+advertised in the DNS.  However, only the endpoints advertised in DNS are
+actually used.
 
 ### Handling Negotiation Variability
 
