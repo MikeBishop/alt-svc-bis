@@ -139,19 +139,27 @@ of simply based on the client IP address. It is also received over an
 authenticated channel, so that the Alt-Svc entry is known to come from the
 origin server.
 
-An HTTPS record is published in the DNS, and can be targeted only to the extend
-that any DNS record might be targeted based on the client subnet.  In the
+An HTTPS record is published in the DNS, and can be targeted only to the extent
+that any DNS record might be targeted based on the client subnet (when sent) or recursive nameserver IP.  In the
 absence of DNSSEC signing and verification, information from the DNS must be
 considered untrusted.
+Note that Alt-Svc records in-turn reference DNS records
+so their targets also typically have a similar level
+of trust, absent DNSSEC.
 
 Alt-Svc records are at best cached from the last interaction with the server,
 while HTTPS records can be retrieved when a client is preparing to make a
 connection to the server.
 
-When the client is preparing to make a connection, the Alt-Svc records are more
+When the client is preparing to make a connection, 
+parameters directly contained in Alt-Svc records are more
 trusted and more tailored, while the HTTPS records are more current.  Should a
 client not do HTTPS queries when it has a usable Alt-Svc record?  Should the
-HTTPS records override Alt-Svc?  Or should the two mechanisms interact in some
+HTTPS records override Alt-Svc?
+Which parameters should live only in HTTPS 
+records (referenced by Alt-Svc) vs being possible
+to specify both via HTTPS and Alt-Svc?
+Or should the two mechanisms interact in some
 way?
 
 {{Section 8.3 of SVCB}} resolves the question this way:
@@ -163,7 +171,8 @@ way?
 > port override the alt-authority.
 
 That is, if Alt-Svc provides an alternative host, it changes the hostname being
-resolved away from the origin stated in the URL.  Once those HTTPS records are
+resolved away from the origin stated in the URL
+(although as with Alt-Svc, the "Origin" itself remains unchanged).  Once those HTTPS records are
 retrieved, the capabilities advertised in Alt-Svc filter the endpoints
 advertised in the DNS.  However, only the endpoints advertised in DNS are
 actually used.
@@ -194,7 +203,8 @@ supported protocols and performs negotiation with the server only within TLS.
 This difference is motivated in part by the status of the DNS record as an
 untrusted channel.  The set of ALPN tokens supported by the origin and its
 alternatives is more trusted when obtained directly from the origin over an
-authenticated connection.
+authenticated connection, 
+such as the authenticated TLS connection handshake.
 
 ## HTTP/3 Frame Definition
 
