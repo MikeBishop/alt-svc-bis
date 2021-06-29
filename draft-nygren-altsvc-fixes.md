@@ -170,7 +170,9 @@ That is, if Alt-Svc provides an alternative host, it changes the hostname being
 resolved away from the origin stated in the URL (although as with Alt-Svc, the
 "Origin" itself remains unchanged).  Once those HTTPS records are retrieved, the
 capabilities advertised in Alt-Svc filter the endpoints advertised in the DNS.
-However, only the endpoints advertised in DNS are actually used.
+However, only the endpoints advertised in DNS are actually used. By defining the
+relationship this way, servers which already use Alt-Svc headers can continue to
+use their existing headers while deploying HTTPS records.
 
 This is particularly relevant for clients seeking to employ Encrypted Client
 Hello, as there is not currently a defined way to send ECH keys in Alt-Svc.
