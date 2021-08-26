@@ -1,7 +1,7 @@
 ---
 title: "HTTP Alternative Services"
 abbrev: "HTTP Alternative Services"
-docname: draft-bishop-httpbis-rfc7838-bis-latest
+docname: draft-ietf-httpbis-rfc7838bis-latest
 category: std
 
 ipr: trust200902
@@ -15,24 +15,26 @@ pi: [toc, sortrefs, symrefs]
 
 author:
  -
-    ins: M. Nottingham
-    name: Mark Nottingham
-    organization: Fastly
-    email: mnot@mnot.net
+    ins: M. Bishop
+    name: Mike Bishop
+    organization: Akamai Technologies
+    email: mbishop@evequefou.be
+    role: editor
 
  -
-    ins: P. McManus
-    name: Patrick McManus
-    organization: Fastly
-    email: mcmanus@ducksong.com
+    ins: M. Thomson
+    name: Martin Thomson
+    org: Mozilla
+    email: mt@lowentropy.net
+    role: editor
 
- -
-    ins: J. Reschke
-    name: Julian F. Reschke
-    organization: greenbytes GmbH
-    email: julian.reschke@greenbytes.de
 
 normative:
+  RFC6066:
+  RFC7230:
+  RFC7234:
+  RFC5890:
+  RFC5226:
 
 informative:
 
@@ -49,7 +51,7 @@ configuration.
 
 # Introduction
 
-HTTP {{!RFC7230}} conflates the identification of resources with their
+HTTP {{RFC7230}} conflates the identification of resources with their
 location.  In other words, "http://" and "https://" URIs are used to
 both name and find things to interact with.
 
@@ -69,18 +71,18 @@ For example:
 
 - An origin server might wish to segment its clients into groups of
   capabilities, such as those supporting Server Name Indication
-  (SNI) (Section 3 of {{!RFC6066}}), for operational purposes.
+  (SNI) ({{Section 3 of RFC6066}}), for operational purposes.
 
 This specification defines a new concept in HTTP, "Alternative
 Services", that allows an origin server to nominate additional means
 of interacting with it on the network.  It defines a general
-framework for this in Section 2, along with specific mechanisms for
-advertising their existence using HTTP header fields (Section 3) or
-HTTP/2 frames (Section 4), plus a way to indicate that an alternative
-service was used (Section 5).
+framework for this in {{concepts}}, along with specific mechanisms for
+advertising their existence using HTTP header fields ({{alt-svc-field}}) or
+HTTP/2 frames ({{alt-svc-frame}}), plus a way to indicate that an alternative
+service was used ({{alt-used-field}}).
 
 It also endorses the status code 421 (Misdirected Request)
-(Section 6) that origin servers or their nominated alternatives can
+({{status-code}}) that origin servers or their nominated alternatives can
 use to indicate that they are not authoritative for a given origin,
 in cases where the wrong location is used.
 
@@ -91,9 +93,9 @@ The key words "MUST", "MUST NOT", "REQUIRED", "SHALL", "SHALL NOT",
 document are to be interpreted as described in {{!RFC2119}}.
 
 This document uses the Augmented BNF defined in {{!RFC5234}} and updated
-by {{!RFC7405}} along with the "#rule" extension defined in Section 7 of
-{{!RFC7230}}.  The rules below are defined in {{!RFC5234}}, {{!RFC7230}}, and
-{{!RFC7234}}:
+by {{!RFC7405}} along with the "#rule" extension defined in {{Section 7 of
+RFC7230}}.  The rules below are defined in {{!RFC5234}}, {{RFC7230}}, and
+{{RFC7234}}:
 
 ~~~ abnf
 OWS           = <OWS, see [RFC7230], Section 3.2.3>
@@ -104,7 +106,7 @@ token         = <token, see [RFC7230], Section 3.2.6>
 uri-host      = <uri-host, see [RFC7230], Section 2.7>
 ~~~
 
-# Alternative Services Concepts
+# Alternative Services Concepts {#concepts}
 
 This specification defines a new concept in HTTP, the "Alternative
 Service".  When an origin {{!RFC6454}} has resources that are accessible
@@ -115,7 +117,7 @@ An alternative service can be used to interact with the resources on
 an origin server at a separate location on the network, possibly
 using a different protocol configuration.  Alternative services are
 considered authoritative for an origin's resources, in the sense of
-{{!RFC7230}}, Section 9.1.
+{{Section 9.1 of RFC7230}}.
 
 For example, an origin:
 
@@ -160,7 +162,7 @@ before.
 Importantly, this includes its security context; in particular, when
 TLS {{?RFC5246}} is used to authenticate, the alternative service will
 need to present a certificate for the origin's host name, not that of
-the alternative.  Likewise, the Host header field ({{!RFC7230}},
+the alternative.  Likewise, the Host header field ({{RFC7230}},
 Section 5.4) is still derived from the origin, not the alternative
 service (just as it would if a CNAME were being used).
 
@@ -172,9 +174,9 @@ Formally, an alternative service is identified by the combination of:
 - An Application Layer Protocol Negotiation (ALPN) protocol name, as
   per {{!RFC7301}}
 
-- A host, as per {{!RFC3986}}, Section 3.2.2
+- A host, as per {{Section 3.2.2 of RFC3986}}
 
-- A port, as per {{!RFC3986}}, Section 3.2.3
+- A port, as per {{Section 3.2.3 of RFC3986}}
 
 The ALPN protocol name is used to identify the application protocol
 or suite of protocols used by the alternative service.  Note that for
@@ -301,7 +303,7 @@ the connection to the alternative service MUST be considered to have
 failed.
 
 
-# The Alt-Svc HTTP Header Field
+# The Alt-Svc HTTP Header Field {#alt-svc-field}
 
 An HTTP(S) origin server can advertise the availability of
 alternative services to clients by adding an Alt-Svc header field to
@@ -326,7 +328,7 @@ origin requests all alternatives for that origin to be invalidated
 invalid reply containing both "clear" and alternative services).
 
 ALPN protocol names are octet sequences with no additional
-constraints on format.  Octets not allowed in tokens ({{!RFC7230}},
+constraints on format.  Octets not allowed in tokens ({{RFC7230}},
 Section 3.2.6) MUST be percent-encoded as per Section 2.1 of
 {{!RFC3986}}.  Consequently, the octet representing the percent
 character "%" (hex 25) MUST be percent-encoded as well.
@@ -412,7 +414,7 @@ New parameters can be defined in extension specifications (see
 Section 7.3 for registration details).
 
 Note that all field elements that allow "quoted-string" syntax MUST
-be processed as per Section 3.2.6 of {{!RFC7230}}.
+be processed as per {{Section 3.2.6 of RFC7230}}.
 
 ## Caching Alt-Svc Header Field Values
 
@@ -434,7 +436,7 @@ considered fresh.
 Alt-Svc: h2=":443"; ma=3600
 ~~~
 
-See Section 4.2.3 of {{!RFC7234}} for details on determining the
+See {{Section 4.2.3 of RFC7234}} for details on determining the
 response age.
 
 For example, a response:
@@ -485,9 +487,9 @@ Clients MUST ignore "persist" parameters with values other than "1".
 See Section 2.2 for general requirements on caching alternative
 services.
 
-# The ALTSVC HTTP/2 Frame
+# The ALTSVC HTTP/2 Frame {#alt-svc-frame}
 
-The ALTSVC HTTP/2 frame ({{!RFC7540}}, Section 4) advertises the
+The ALTSVC HTTP/2 frame ({{Section 4 of RFC7540}}) advertises the
 availability of an alternative service to an HTTP/2 client.
 
 The ALTSVC frame is a non-critical extension to HTTP/2.  Endpoints
@@ -525,7 +527,7 @@ Origin-Len:
 Origin:
 
 : An OPTIONAL sequence of characters containing the ASCII serialization of an
-  origin ({{!RFC6454}}, Section 6.2) to which the alternative service is
+  origin ({{Section 6.2 of RFC6454}}) to which the alternative service is
   applicable.
 
 Alt-Svc-Field-Value:
@@ -557,11 +559,11 @@ Note that it would be unwise to mix the use of Alt-Svc header fields
 with the use of ALTSVC frames, as the sequence of receipt might be
 hard to predict.
 
-# The Alt-Used HTTP Header Field
+# The Alt-Used HTTP Header Field {#alt-used-field}
 
 The Alt-Used header field is used in requests to identify the
 alternative service in use, just as the Host header field
-(Section 5.4 of {{!RFC7230}}) identifies the host and port of the
+({{Section 5.4 of RFC7230}}) identifies the host and port of the
 origin.
 
 ~~~ abnf
@@ -585,7 +587,7 @@ Host: origin.example.com
 Alt-Used: alternate.example.net
 ~~~
 
-# The 421 (Misdirected Request) HTTP Status Code
+# The 421 (Misdirected Request) HTTP Status Code {#status-code}
 
 The 421 (Misdirected Request) status code is defined in Section 9.1.2
 of {{!RFC7540}} to indicate that the current server instance is not
@@ -625,7 +627,7 @@ Engineering Task Force".
 ## The ALTSVC HTTP/2 Frame Type
 
 This document registers the ALTSVC frame type in the "HTTP/2 Frame
-Type" registry ({{!RFC7540}}, Section 11.2).
+Type" registry ({{Section 11.2 of RFC7540}}).
 
 Frame Type:
 
@@ -654,7 +656,7 @@ A registration MUST include the following fields:
 - Pointer to specification text
 
 Values to be added to this name space require Expert Review (see
-{{!RFC5226}}, Section 4.1).
+{{Section 4.1 of RFC5226}}).
 
 ### Registrations
 
@@ -670,7 +672,7 @@ has been populated with the registrations below:
 
 An internationalized domain name that appears in either the header
 field (Section 3) or the HTTP/2 frame (Section 4) MUST be expressed
-using A-labels ({{!RFC5890}}, Section 2.3.2.1).
+using A-labels ({{Section 2.3.2.1 of RFC5890}}).
 
 # Security Considerations
 
@@ -786,7 +788,7 @@ This risk can be mitigated in servers by using the URI scheme
 explicitly carried by the protocol (such as ":scheme" in HTTP/2 or
 the "absolute form" of the request target in HTTP/1.1) as an
 indication of security context, instead of other connection
-properties ({{!RFC7540}}, Section 8.1.2.3 and {{!RFC7230}}, Section 5.3.2).
+properties ({{Section 8.1.2.3 of RFC7540}} and {{Section 5.3.2 of RFC7230}}).
 
 When the protocol does not explicitly carry the scheme (as is usually
 the case for HTTP/1.1 over TLS), servers can mitigate this risk by
@@ -799,11 +801,6 @@ refraining from advertising alternative services for insecure schemes
 # Acknowledgments
 {:numbered="false"}
 
-Thanks to Adam Langley, Bence Beky, Chris Lonvick, Eliot Lear, Erik
-Nygren, Guy Podjarny, Herve Ruellan, Lucas Pardue, Martin Thomson,
-Matthew Kerwin, Mike Bishop, Paul Hoffman, Richard Barnes, Richard
-Bradbury, Stephen Farrell, Stephen Ludin, and Will Chan for their
-feedback and suggestions.
-
-The Alt-Svc header field was influenced by the design of the
-Alternate-Protocol header field in SPDY.
+The previous version of this document was authored by Mark Nottingham, Patrick
+McManus, and Julian F. Reschke.  {{?RFC7838}} contains a more extensive list of
+people who contributed to that document.
