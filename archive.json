@@ -1,0 +1,275 @@
+{
+  "magic": "E!vIA5L86J2I",
+  "timestamp": "2021-08-12T00:16:40.456178+00:00",
+  "repo": "MikeBishop/alt-svc-bis",
+  "labels": [
+    {
+      "name": "bug",
+      "description": "Something isn't working",
+      "color": "d73a4a"
+    },
+    {
+      "name": "documentation",
+      "description": "Improvements or additions to documentation",
+      "color": "0075ca"
+    },
+    {
+      "name": "duplicate",
+      "description": "This issue or pull request already exists",
+      "color": "cfd3d7"
+    },
+    {
+      "name": "enhancement",
+      "description": "New feature or request",
+      "color": "a2eeef"
+    },
+    {
+      "name": "help wanted",
+      "description": "Extra attention is needed",
+      "color": "008672"
+    },
+    {
+      "name": "good first issue",
+      "description": "Good for newcomers",
+      "color": "7057ff"
+    },
+    {
+      "name": "invalid",
+      "description": "This doesn't seem right",
+      "color": "e4e669"
+    },
+    {
+      "name": "question",
+      "description": "Further information is requested",
+      "color": "d876e3"
+    },
+    {
+      "name": "wontfix",
+      "description": "This will not be worked on",
+      "color": "ffffff"
+    }
+  ],
+  "issues": [],
+  "pulls": [
+    {
+      "number": 1,
+      "id": "MDExOlB1bGxSZXF1ZXN0Njc4MTE4OTE1",
+      "title": "HTTPS/Alt-Svc interaction",
+      "url": "https://github.com/MikeBishop/alt-svc-bis/pull/1",
+      "state": "OPEN",
+      "author": "MikeBishop",
+      "authorAssociation": "OWNER",
+      "assignees": [],
+      "labels": [],
+      "body": "This expands the discussion of how Alt-Svc and SVCB/HTTPS currently interact.  Primarily intended for assistance in HTTP WG review, with feedback contributing _either_ to the SVCB draft before it goes to Last Call _or_ to the scope of an Alt-Svc revision.",
+      "createdAt": "2021-06-25T18:58:49Z",
+      "updatedAt": "2021-07-05T05:10:33Z",
+      "baseRepository": "MikeBishop/alt-svc-bis",
+      "baseRefName": "main",
+      "baseRefOid": "1168feb6e39913359c7972418fd43d9f690579ac",
+      "headRepository": "MikeBishop/alt-svc-bis",
+      "headRefName": "https-interaction",
+      "headRefOid": "ff811f6944880801c13ed9360dc87e7abd91302b",
+      "closedAt": null,
+      "mergedAt": null,
+      "mergedBy": null,
+      "mergeCommit": null,
+      "comments": [],
+      "reviews": [
+        {
+          "id": "MDE3OlB1bGxSZXF1ZXN0UmV2aWV3NjkzMTg1Mzk0",
+          "commit": {
+            "abbreviatedOid": "912a314"
+          },
+          "author": "bemasc",
+          "authorAssociation": "NONE",
+          "state": "COMMENTED",
+          "body": "Fine with me.\r\n\r\nThis text ignores the question of ECH, which seemed to be the main concern for Alt-Svc/SVCB interaction.  Maybe it's too complicated to deal with here.",
+          "createdAt": "2021-06-25T20:53:26Z",
+          "updatedAt": "2021-06-25T20:57:12Z",
+          "comments": [
+            {
+              "originalPosition": 30,
+              "body": "```suggestion\r\nAn HTTPS record is published in the DNS, and can be targeted only to the extent\r\n```",
+              "createdAt": "2021-06-25T20:53:26Z",
+              "updatedAt": "2021-06-25T20:57:12Z"
+            }
+          ]
+        },
+        {
+          "id": "MDE3OlB1bGxSZXF1ZXN0UmV2aWV3NjkzMjcwMTI4",
+          "commit": {
+            "abbreviatedOid": "912a314"
+          },
+          "author": "enygren",
+          "authorAssociation": "COLLABORATOR",
+          "state": "COMMENTED",
+          "body": "",
+          "createdAt": "2021-06-26T02:44:58Z",
+          "updatedAt": "2021-06-26T02:44:58Z",
+          "comments": [
+            {
+              "originalPosition": 31,
+              "body": "```suggestion\r\nthat any DNS record might be targeted based on the client subnet (when sent) or recursive nameserver IP.  In the\r\n```",
+              "createdAt": "2021-06-26T02:44:58Z",
+              "updatedAt": "2021-06-26T02:44:59Z"
+            }
+          ]
+        },
+        {
+          "id": "MDE3OlB1bGxSZXF1ZXN0UmV2aWV3NjkzMjcwMjM0",
+          "commit": {
+            "abbreviatedOid": "912a314"
+          },
+          "author": "enygren",
+          "authorAssociation": "COLLABORATOR",
+          "state": "COMMENTED",
+          "body": "",
+          "createdAt": "2021-06-26T02:46:45Z",
+          "updatedAt": "2021-06-26T02:46:46Z",
+          "comments": [
+            {
+              "originalPosition": 33,
+              "body": "```suggestion\r\nconsidered untrusted.\r\nNote that Alt-Svc records in-turn reference DNS records\r\nso their targets also typically have a similar level\r\nof trust, absent DNSSEC.\r\n```",
+              "createdAt": "2021-06-26T02:46:45Z",
+              "updatedAt": "2021-06-26T02:46:46Z"
+            }
+          ]
+        },
+        {
+          "id": "MDE3OlB1bGxSZXF1ZXN0UmV2aWV3NjkzMjcwMzAx",
+          "commit": {
+            "abbreviatedOid": "912a314"
+          },
+          "author": "enygren",
+          "authorAssociation": "COLLABORATOR",
+          "state": "COMMENTED",
+          "body": "",
+          "createdAt": "2021-06-26T02:47:52Z",
+          "updatedAt": "2021-06-26T02:47:53Z",
+          "comments": [
+            {
+              "originalPosition": 41,
+              "body": "```suggestion\r\nWhen the client is preparing to make a connection, \r\nparameters directly contained in Alt-Svc records are more\r\ntrusted and more tailored, while the HTTPS records are more current.  Should a\r\nclient not do HTTPS queries when it has a usable Alt-Svc record?  Should the\r\n```",
+              "createdAt": "2021-06-26T02:47:52Z",
+              "updatedAt": "2021-06-26T02:47:53Z"
+            }
+          ]
+        },
+        {
+          "id": "MDE3OlB1bGxSZXF1ZXN0UmV2aWV3NjkzMjcwMzY0",
+          "commit": {
+            "abbreviatedOid": "912a314"
+          },
+          "author": "enygren",
+          "authorAssociation": "COLLABORATOR",
+          "state": "COMMENTED",
+          "body": "",
+          "createdAt": "2021-06-26T02:48:46Z",
+          "updatedAt": "2021-06-26T02:48:46Z",
+          "comments": [
+            {
+              "originalPosition": 42,
+              "body": "```suggestion\r\nHTTPS records override Alt-Svc?\r\nWhich parameters should live only in HTTPS \r\nrecords (referenced by Alt-Svc) vs being possible\r\nto specify both via HTTPS and Alt-Svc?\r\nOr should the two mechanisms interact in some\r\n```",
+              "createdAt": "2021-06-26T02:48:46Z",
+              "updatedAt": "2021-06-26T02:48:46Z"
+            }
+          ]
+        },
+        {
+          "id": "MDE3OlB1bGxSZXF1ZXN0UmV2aWV3NjkzMjcwNDM2",
+          "commit": {
+            "abbreviatedOid": "912a314"
+          },
+          "author": "enygren",
+          "authorAssociation": "COLLABORATOR",
+          "state": "COMMENTED",
+          "body": "",
+          "createdAt": "2021-06-26T02:49:39Z",
+          "updatedAt": "2021-06-26T02:49:40Z",
+          "comments": [
+            {
+              "originalPosition": 54,
+              "body": "```suggestion\r\nresolved away from the origin stated in the URL\r\n(although as with Alt-Svc, the \"Origin\" itself remains unchanged).  Once those HTTPS records are\r\n```",
+              "createdAt": "2021-06-26T02:49:39Z",
+              "updatedAt": "2021-06-26T02:49:40Z"
+            }
+          ]
+        },
+        {
+          "id": "MDE3OlB1bGxSZXF1ZXN0UmV2aWV3NjkzMjcwNTE3",
+          "commit": {
+            "abbreviatedOid": "912a314"
+          },
+          "author": "enygren",
+          "authorAssociation": "COLLABORATOR",
+          "state": "COMMENTED",
+          "body": "",
+          "createdAt": "2021-06-26T02:50:51Z",
+          "updatedAt": "2021-06-26T02:50:52Z",
+          "comments": [
+            {
+              "originalPosition": 57,
+              "body": "```suggestion\r\nadvertised in the DNS.  However, only the endpoints advertised in DNS are\r\nactually used.  (For example, Encrypted Client Hello\r\nconfiguration only lives in HTTPS records and not\r\nalso as an Alt-Svc parameter.)\r\n```",
+              "createdAt": "2021-06-26T02:50:51Z",
+              "updatedAt": "2021-06-26T02:50:52Z"
+            }
+          ]
+        },
+        {
+          "id": "MDE3OlB1bGxSZXF1ZXN0UmV2aWV3NjkzMjcwNjA3",
+          "commit": {
+            "abbreviatedOid": "912a314"
+          },
+          "author": "enygren",
+          "authorAssociation": "COLLABORATOR",
+          "state": "COMMENTED",
+          "body": "",
+          "createdAt": "2021-06-26T02:52:22Z",
+          "updatedAt": "2021-06-26T02:52:23Z",
+          "comments": [
+            {
+              "originalPosition": 85,
+              "body": "```suggestion\r\nalternatives is more trusted when obtained directly from the origin over an\r\nauthenticated connection, \r\nsuch as the authenticated TLS connection handshake.\r\n```",
+              "createdAt": "2021-06-26T02:52:22Z",
+              "updatedAt": "2021-06-26T02:52:23Z"
+            }
+          ]
+        },
+        {
+          "id": "MDE3OlB1bGxSZXF1ZXN0UmV2aWV3Njk1MDgxNjY2",
+          "commit": {
+            "abbreviatedOid": "912a314"
+          },
+          "author": "MikeBishop",
+          "authorAssociation": "OWNER",
+          "state": "COMMENTED",
+          "body": "",
+          "createdAt": "2021-06-29T14:04:36Z",
+          "updatedAt": "2021-06-29T14:04:36Z",
+          "comments": [
+            {
+              "originalPosition": 57,
+              "body": "This parenthetical doesn't seem related to the paragraph.  I'll go back and add the point elsewhere.",
+              "createdAt": "2021-06-29T14:04:36Z",
+              "updatedAt": "2021-06-29T14:04:36Z"
+            }
+          ]
+        },
+        {
+          "id": "MDE3OlB1bGxSZXF1ZXN0UmV2aWV3Njk4Nzk3ODU4",
+          "commit": {
+            "abbreviatedOid": "ff811f6"
+          },
+          "author": "martinthomson",
+          "authorAssociation": "NONE",
+          "state": "COMMENTED",
+          "body": "I think that this is a good contribution to the discussion.\r\n\r\nMy underlying model is always the same: TLS handshakes produce the truth, everything else is just hints.  The reason we decorate HTTPS/SVCB/Alt-Svc with ALPN identifiers is solely to guide the decision over what choices a client *attempts*.  What a client then *accepts* is entirely based on its configuration and the result of the TLS handshake; it is not guided by what the client learns on its journey.\r\n\r\nMost of what we are doing here (and elsewhere) is different ways of restating this model in concrete terms.\r\n\r\nTo that end, I would treat Alt-Svc as effectively unsecured also; there is no real benefit to attributing anything stronger, particularly as the value is cached and therefore not sensitive to servers changing their opinion.\r\n\r\nConsequently, this model is largely consistent with either SVCB or Alt-Svc rules, with a possible exception for the issue @davidben identified in Alt-Svc.\r\n\r\nTake the HTTPS+Alt-Svc example: if Alt-Svc says try X with protocol Y, a client then attempts to resolve that service instance using HTTPS.  If the result of HTTPS resolution broadly agrees with the constraints the client has -- both from Alt-Svc and from ECH -- the client makes the connection attempt.\r\n\r\nThe possible bug exists because of the idea that Alt-Svc might exist to support an upgrade that is ultimately unfulfilled.  \r\n\r\nFor instance, an http/1.1 server advertises h2, but the client finds that http/1.1 is negotiated anyway.  This to me is not a failure of this system, but a policy interaction: a client might choose not to support http/1.1 alternative services.  Even if I don't like that choice, it's a posture that fits the underlying model, as client preferences do not need to be sensitive to unsecured signals (DNS or Alt-Svc equally).  \r\n\r\nA more interesting example is an h2 server that advertises an h2 alternative that ultimately downgrades to http/1.1.  Again, I claim that this is fine: either the client has a rule that says \"don't do http/1.1 with Alt-Svc\" or \"don't do http/1.1 if the origin is known to actively support h2\" -- a questionable call in this case... given that the h2 connection is probably going away -- or it accepts that times have changed and continues with the http/1.1 connection.\r\n\r\nEdited to add: ECH is a nasty exception to my above rule: learning that ECH is available generally results in clients changing what they accept.",
+          "createdAt": "2021-07-05T05:09:01Z",
+          "updatedAt": "2021-07-05T05:10:33Z",
+          "comments": []
+        }
+      ]
+    }
+  ]
+}
