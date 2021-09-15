@@ -244,10 +244,10 @@ modifications:
 This document defines a new status code directing that a client attempt to
 satisfy the request from an alternative.
 
-A server MUST include an `Alt-Svc` header field in the response indicating which
-alternative(s) the client can use to satisfy the given request.  A server
-MUST NOT send the 3NN status code in response to a request which did not
-contain the `Accept-Alt-Svc` header field.
+A server MUST include an `Alt-Svc` or `Additional-Alt-Svc` header field in the
+response indicating which alternative(s) the client can use to satisfy the given
+request.  A server MUST NOT send the 3NN status code in response to a request
+which did not contain the `Accept-Alt-Svc` header field.
 
 Upon receipt of this status code, a client SHOULD choose an alternative service
 and retry the request with that alternative.  If all configured alternatives
