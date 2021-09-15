@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>MikeBishop/alt-svc-bis distributed preview</title>
+    <meta name="viewport" content="initial-scale=1.0">
+    <style type="text/css">/*<![CDATA[*/
+      body { font-family: "Helvetica Neue","Open Sans", Helvetica, Calibri,sans-serif; }
+      h1, h2, td { font-family: "Helvetica Neue", "Roboto Condensed", "Open Sans", Helvetica, Calibri, sans-serif; }
+      h1 { font-size: 20px; } h2 { font-size: 16px; }
+      table { margin: 5px 10px; border-collapse: collapse; }
+      th, td { font-weight: normal; text-align: left; padding: 2px 5px; }
+      a:link { color: #000; } a:visited { color: #00a; }
+    /*]]>*/</style>
+  </head>
+  <body>
+    <h1>Editor's drafts for distributed branch of <a href="https://github.com/MikeBishop/alt-svc-bis/tree/distributed">MikeBishop/alt-svc-bis</a></h1>
+    <p>View <a href="issues.html">saved issues</a>, or the latest GitHub <a href="https://github.com/MikeBishop/alt-svc-bis/issues">issues</a> and <a href="https://github.com/MikeBishop/alt-svc-bis/pulls">pull requests</a> in the <a href="https://github.com/MikeBishop/alt-svc-bis">repo</a>.</p>
+    <table id="branch-distributed">
+      <tr>
+        <td><a href="./draft-nygren-altsvc-fixes.html" class="html draft-nygren-altsvc-fixes">Alt-Svc Fixes</a></td>
+        <td><a href="./draft-nygren-altsvc-fixes.txt" class="txt draft-nygren-altsvc-fixes">plain text</a></td>
+        <td><a</td>
+        <td><a href="https://tools.ietf.org/rfcdiff?url1=https://MikeBishop.github.io/alt-svc-bis/draft-nygren-altsvc-fixes.txt&amp;url2=https://MikeBishop.github.io/alt-svc-bis/distributed/draft-nygren-altsvc-fixes.txt">diff with main</a></td>
+        <td><a href="https://tools.ietf.org/rfcdiff?url1=https://tools.ietf.org/id/draft-nygren-altsvc-fixes.txt&amp;url2=https://MikeBishop.github.io/alt-svc-bis/distributed/draft-nygren-altsvc-fixes.txt" class="diff draft-nygren-altsvc-fixes">diff with last submission</a></td>
+        <td></td>
+      </tr>
+      <tr>
+        <td><a href="./draft-bishop-httpbis-rfc7838bis.html" class="html draft-bishop-httpbis-rfc7838bis">HTTP Alternative Services</a></td>
+        <td><a href="./draft-bishop-httpbis-rfc7838bis.txt" class="txt draft-bishop-httpbis-rfc7838bis">plain text</a></td>
+        <td><a</td>
+        <td><a href="https://tools.ietf.org/rfcdiff?url1=https://MikeBishop.github.io/alt-svc-bis/draft-bishop-httpbis-rfc7838bis.txt&amp;url2=https://MikeBishop.github.io/alt-svc-bis/distributed/draft-bishop-httpbis-rfc7838bis.txt">diff with main</a></td>
+        <td><a href="https://tools.ietf.org/rfcdiff?url1=https://tools.ietf.org/id/draft-bishop-httpbis-rfc7838bis.txt&amp;url2=https://MikeBishop.github.io/alt-svc-bis/distributed/draft-bishop-httpbis-rfc7838bis.txt" class="diff draft-bishop-httpbis-rfc7838bis">diff with last submission</a></td>
+        <td></td>
+      </tr>
+      <tr>
+        <td><a href="./draft-bishop-httpbis-distributed-origin.html" class="html draft-bishop-httpbis-distributed-origin">Distributed HTTP Origins</a></td>
+        <td><a href="./draft-bishop-httpbis-distributed-origin.txt" class="txt draft-bishop-httpbis-distributed-origin">plain text</a></td>
+        <td><a</td>
+        <td><a href="https://tools.ietf.org/rfcdiff?url1=https://MikeBishop.github.io/alt-svc-bis/draft-bishop-httpbis-distributed-origin.txt&amp;url2=https://MikeBishop.github.io/alt-svc-bis/distributed/draft-bishop-httpbis-distributed-origin.txt">diff with main</a></td>
+        <td><a href="https://tools.ietf.org/rfcdiff?url1=https://tools.ietf.org/id/draft-bishop-httpbis-distributed-origin.txt&amp;url2=https://MikeBishop.github.io/alt-svc-bis/distributed/draft-bishop-httpbis-distributed-origin.txt" class="diff draft-bishop-httpbis-distributed-origin">diff with last submission</a></td>
+        <td></td>
+      </tr>
+    </table>
+    <script>
+// @licstart
+//  Any copyright is dedicated to the Public Domain.
+//  http://creativecommons.org/publicdomain/zero/1.0/
+// @licend
+window.onload = function() {
+  var referrer_branch = 'main';
+  // e.g., "https://github.com/user/repo/tree/main"
+  var chunks = document.referrer.split("/");
+  if (chunks[2] === 'github.com' && chunks[5] === 'tree') {
+    referrer_branch = chunks[6];
+  }
+  let branch = document.querySelector('#branch-' + referrer_branch);
+  let h = document.location.hash.substring(1);
+  if (h === 'show') {
+    document.location.hash = '#' + branch.id;
+  } else if (branch && h.startsWith('go')) {
+    let e = branch.querySelector(h.substring(2));
+    if (e && e.href) {
+      document.location = e.href;
+    }
+  }
+};
+    </script>
+  </body>
+</html>
