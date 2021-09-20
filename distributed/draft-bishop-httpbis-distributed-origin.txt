@@ -4,8 +4,8 @@
 
 HTTP Working Group                                             M. Bishop
 Internet-Draft                                       Akamai Technologies
-Intended status: Informational                         15 September 2021
-Expires: 19 March 2022
+Intended status: Informational                         20 September 2021
+Expires: 24 March 2022
 
 
           Distributed HTTP Origins: Solution Space Exploration
@@ -44,7 +44,7 @@ Status of This Memo
    time.  It is inappropriate to use Internet-Drafts as reference
    material or to cite them other than as "work in progress."
 
-   This Internet-Draft will expire on 19 March 2022.
+   This Internet-Draft will expire on 24 March 2022.
 
 Copyright Notice
 
@@ -154,6 +154,13 @@ Table of Contents
    loaded by the primary origin without first making CORS preflight
    requests [CORS], which introduce additional latency.
 
+   This approach can also complicate certain protocol features which
+   rely on previous contact with the server.  The primary server
+   typically cannot provide Alt-Svc entries for the secondary, though
+   the targeting of the specific hostname may avoid the need for Alt-
+   Svc.  TLS session resumption and 0-RTT will typically not be usable,
+   adding latency to the request.
+
 2.2.  Internal Load-Balancing
 
    A second solution, which is generally not visible to the client, is
@@ -212,6 +219,10 @@ Table of Contents
    authority over the origin to another host which might be preferable
    in some way.  However, this mechanism delegates the entire origin and
    cannot be subdivided.
+
+   A 421 response being used to work around this dramatically reduces
+   efficiency, as the client has no insight into which paths the
+   alternative might or might not support.
 
 4.  Possible Future Directions
 

@@ -5,9 +5,9 @@
 HTTP Working Group                                         M. Nottingham
 Internet-Draft                                                P. McManus
 Intended status: Standards Track                                  Fastly
-Expires: 19 March 2022                                        J. Reschke
+Expires: 24 March 2022                                        J. Reschke
                                                          greenbytes GmbH
-                                                       15 September 2021
+                                                       20 September 2021
 
 
                        HTTP Alternative Services
@@ -46,7 +46,7 @@ Status of This Memo
    time.  It is inappropriate to use Internet-Drafts as reference
    material or to cite them other than as "work in progress."
 
-   This Internet-Draft will expire on 19 March 2022.
+   This Internet-Draft will expire on 24 March 2022.
 
 Copyright Notice
 
