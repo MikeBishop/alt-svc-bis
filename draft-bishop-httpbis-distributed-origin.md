@@ -95,6 +95,12 @@ bulk data transfer, this limits the types of requests that can be made and the
 access to the data from scripts loaded by the primary origin without first
 making CORS preflight requests {{CORS}}, which introduce additional latency.
 
+This approach can also complicate certain protocol features which rely on previous
+contact with the server.  The primary server typically cannot provide Alt-Svc
+entries for the secondary, though the targeting of the specific hostname may
+avoid the need for Alt-Svc.  TLS session resumption and 0-RTT will typically
+not be usable, adding latency to the request.
+
 ## Internal Load-Balancing
 
 A second solution, which is generally not visible to the client, is to have all
@@ -147,6 +153,10 @@ prohibitive.
 {{?AltSvc=RFC7838}} describes a way in which an origin server can delegate authority
 over the origin to another host which might be preferable in some way.  However,
 this mechanism delegates the entire origin and cannot be subdivided.
+
+A 421 response being used to work around this dramatically reduces efficiency,
+as the client has no insight into which paths the alternative might or might not
+support.
 
 # Possible Future Directions {#proposals}
 
