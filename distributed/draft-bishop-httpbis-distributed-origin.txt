@@ -4,8 +4,8 @@
 
 HTTP Working Group                                             M. Bishop
 Internet-Draft                                       Akamai Technologies
-Intended status: Informational                         20 September 2021
-Expires: 24 March 2022
+Intended status: Informational                         23 September 2021
+Expires: 27 March 2022
 
 
           Distributed HTTP Origins: Solution Space Exploration
@@ -44,7 +44,7 @@ Status of This Memo
    time.  It is inappropriate to use Internet-Drafts as reference
    material or to cite them other than as "work in progress."
 
-   This Internet-Draft will expire on 24 March 2022.
+   This Internet-Draft will expire on 27 March 2022.
 
 Copyright Notice
 
@@ -252,9 +252,18 @@ Table of Contents
 
 4.1.  Scope-Restricted Alt-Svc Entries
 
-   When an alternative service is advertised by an origin, the indicated
-   server is authoritative for all resources in the origin.  This can be
-   modified by the "scope" parameter.
+   When an alternative service is advertised by an origin, by default
+   the indicated server is authoritative for all resources in the
+   origin.  The "scope" parameter can be used to adjust this scope.
+
+   The "scope" parameter contains the path portion of a URI; see
+   Section 3.3 of [RFC3986].  The indicated alternative is authoritative
+   only for resources where the path begins with the indicated prefix.
+
+   "abnf scope = DQUOTE path DQUOTE ; see [RFC3986], Section 3.3"
+
+   For example: "http-message Alt-Svc: h2=":443"; ma=3600; scope="/sn-
+   jpocxaa-j8bl", h2=":443"; ma=3600; scope="/sn-5ualdn7s""
 
    A scope-restricted alternative SHOULD NOT be sent requests for
    resources unless the "path" portion of the URI is a prefix match with
@@ -354,6 +363,11 @@ Table of Contents
               Requirement Levels", BCP 14, RFC 2119,
               DOI 10.17487/RFC2119, March 1997,
               <https://datatracker.ietf.org/doc/html/rfc2119>.
+
+   [RFC3986]  Berners-Lee, T., Fielding, R., and L. Masinter, "Uniform
+              Resource Identifier (URI): Generic Syntax", STD 66,
+              RFC 3986, DOI 10.17487/RFC3986, January 2005,
+              <https://datatracker.ietf.org/doc/html/rfc3986>.
 
    [RFC8174]  Leiba, B., "Ambiguity of Uppercase vs Lowercase in RFC
               2119 Key Words", BCP 14, RFC 8174, DOI 10.17487/RFC8174,
