@@ -192,15 +192,16 @@ The `scope` parameter contains the path portion of a URI; see {{Section 3.3 of
 RFC3986}}.  The indicated alternative is authoritative only for resources where
 the path begins with the indicated prefix.
 
-``` abnf
+~~~ abnf
 scope = DQUOTE path DQUOTE ; see [RFC3986], Section 3.3
-```
+~~~
 
 For example:
-``` http-message
+
+~~~ http-message
 Alt-Svc: h2=":443"; ma=3600; scope="/sn-jpocxaa-j8bl",
          h2=":443"; ma=3600; scope="/sn-5ualdn7s"
-```
+~~~
 
 A scope-restricted alternative SHOULD NOT be sent requests for resources unless
 the `path` portion of the URI is a prefix match with the indicated scope.
@@ -228,9 +229,9 @@ alphabetically.
 
 For example:
 
-```
+~~~
 Accept-Alt-Svc: host, ma, persist, scope
-```
+~~~
 
 A server MAY publish alternative services containing parameters which are not
 understood by the client, since unknown parameters are ignored per {{?AltSvc}}.
