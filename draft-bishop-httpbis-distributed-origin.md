@@ -22,6 +22,7 @@ author:
 
 normative:
   RFC2119:
+  RFC3986:
 
 informative:
   CORS:
@@ -183,9 +184,23 @@ Other solutions within these constraints should also be considered.
 
 ## Scope-Restricted Alt-Svc Entries
 
-When an alternative service is advertised by an origin, the indicated server
-is authoritative for all resources in the origin.  This can be modified by
-the `scope` parameter.
+When an alternative service is advertised by an origin, by default the indicated
+server is authoritative for all resources in the origin.  The `scope` parameter
+can be used to adjust this scope.
+
+The `scope` parameter contains the path portion of a URI; see {{Section 3.3 of
+RFC3986}}.  The indicated alternative is authoritative only for resources where
+the path begins with the indicated prefix.
+
+``` abnf
+scope = DQUOTE path DQUOTE ; see [RFC3986], Section 3.3
+```
+
+For example:
+``` http-message
+Alt-Svc: h2=":443"; ma=3600; scope="/sn-jpocxaa-j8bl",
+         h2=":443"; ma=3600; scope="/sn-5ualdn7s"
+```
 
 A scope-restricted alternative SHOULD NOT be sent requests for resources unless
 the `path` portion of the URI is a prefix match with the indicated scope.
