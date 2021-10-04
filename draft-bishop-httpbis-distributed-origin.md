@@ -199,7 +199,7 @@ scope = DQUOTE path DQUOTE ; see [RFC3986], Section 3.3
 For example:
 
 ~~~ http-message
-Alt-Svc: h2=":443"; ma=3600; scope="/sn-jpocxaa-j8bl",
+Alt-Svc: h2=":443"; ma=3600; scope="/sn-jpocxaa-j8bl/",
          h2=":443"; ma=3600; scope="/sn-5ualdn7s"
 ~~~
 
@@ -211,7 +211,7 @@ origin servers SHOULD NOT send an alternative service advertisement to a client
 which has not indicated support for this extension ({{altsvc-params}}).
 Alternatives MUST be prepared to receive requests for any resource in the
 origin.  However, the alternative MAY respond with a 421 (Misdirected Request)
-to any request it is unable to server.
+to any request it is unable to serve.
 
 ## Indicating Support for Alt-Svc Parameters {#altsvc-params}
 
