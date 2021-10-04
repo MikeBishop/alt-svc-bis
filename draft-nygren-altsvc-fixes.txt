@@ -4,8 +4,8 @@
 
 TODO Working Group                                             E. Nygren
 Internet-Draft                                                    Akamai
-Intended status: Informational                              11 June 2021
-Expires: 13 December 2021
+Intended status: Informational                            4 October 2021
+Expires: 7 April 2022
 
 
                   Alt-Svc Fixes and Feature Candidates
@@ -46,7 +46,7 @@ Status of This Memo
    time.  It is inappropriate to use Internet-Drafts as reference
    material or to cite them other than as "work in progress."
 
-   This Internet-Draft will expire on 13 December 2021.
+   This Internet-Draft will expire on 7 April 2022.
 
 Copyright Notice
 
@@ -293,7 +293,7 @@ Table of Contents
 
 2.10.  Persist and Caching Concerns
 
-   [AltSvc] defines the "persist" parameter.
+   [AltSvc] defines the persist parameter.
 
       Alternative services that are intended to be longer lived (such as
       those that are not specific to the client access network) can
@@ -366,43 +366,43 @@ Table of Contents
 
    [ECH]      Rescorla, E., Oku, K., Sullivan, N., and C. A. Wood, "TLS
               Encrypted Client Hello", Work in Progress, Internet-Draft,
-              draft-ietf-tls-esni-10, 8 March 2021,
+              draft-ietf-tls-esni-13, 12 August 2021,
               <https://datatracker.ietf.org/doc/html/draft-ietf-tls-
-              esni-10.txt>.
+              esni-13>.
 
    [I-D.bishop-httpbis-altsvc-quic]
               Bishop, M., "ALTSVC Frame in HTTP/QUIC", Work in Progress,
               Internet-Draft, draft-bishop-httpbis-altsvc-quic-01, 15
               May 2020, <https://datatracker.ietf.org/doc/html/draft-
-              bishop-httpbis-altsvc-quic-01.txt>.
+              bishop-httpbis-altsvc-quic-01>.
 
    [I-D.pardue-httpbis-dont-be-clear]
               Pardue, L. and A. Ramine, "Reserving the clear ALPN
               Protocol ID", Work in Progress, Internet-Draft, draft-
               pardue-httpbis-dont-be-clear-00, 15 March 2021,
               <https://datatracker.ietf.org/doc/html/draft-pardue-
-              httpbis-dont-be-clear-00.txt>.
+              httpbis-dont-be-clear-00>.
 
    [I-D.reschke-http-oob-encoding]
               Reschke, J. F. and S. Loreto, "'Out-Of-Band' Content
               Coding for HTTP", Work in Progress, Internet-Draft, draft-
               reschke-http-oob-encoding-12, 24 June 2017,
               <https://datatracker.ietf.org/doc/html/draft-reschke-http-
-              oob-encoding-12.txt>.
+              oob-encoding-12>.
 
    [I-D.thomson-tls-snip]
               Thomson, M., "Secure Negotiation of Incompatible Protocols
               in TLS", Work in Progress, Internet-Draft, draft-thomson-
-              tls-snip-01, 3 January 2021,
+              tls-snip-02, 6 July 2021,
               <https://datatracker.ietf.org/doc/html/draft-thomson-tls-
-              snip-01.txt>.
+              snip-02>.
 
    [SVCB]     Schwartz, B., Bishop, M., and E. Nygren, "Service binding
               and parameter specification via the DNS (DNS SVCB and
               HTTPS RRs)", Work in Progress, Internet-Draft, draft-ietf-
-              dnsop-svcb-https-05, 21 April 2021,
+              dnsop-svcb-https-07, 5 August 2021,
               <https://datatracker.ietf.org/doc/html/draft-ietf-dnsop-
-              svcb-https-05.txt>.
+              svcb-https-07>.
 
 Acknowledgments
 
